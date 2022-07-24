@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="/css/main.css" />
 
         {# App information #}
+        <link rel="icon" href="/img/icon512.png" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="https://www.pwabuilder.com/assets/icons/icon_512.png" />
         <meta name="mobile-web-app-capable" content="yes" />
@@ -38,8 +39,7 @@
 
                 {# Editor scripts #}
                 <script src="/js/editor.js" type="application/javascript"></script>
-                <script type="application/javascript">navigator.serviceWorker.register("/sw.js")</script> 
-                <script src="/js/pwa.js" type="application/javascript"></script>
+                <script type="application/javascript">navigator.serviceWorker.register("/sw.js")</script>
             {% endblock %}
         </main>
     </body>

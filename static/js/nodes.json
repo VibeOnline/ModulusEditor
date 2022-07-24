@@ -1,77 +1,90 @@
 {
-    "set_action": {
-        "color": "purple",
-        "section": [
-            {
-                "text": "set action",
-                "par": [ "Name" ],
-                "hold": true
-            }
-        ]
-    },
+    "actors": {
+        "set_action": {
+            "color": "purple",
+            "section": [
+                {
+                    "text": "set action",
+                    "par": [ "Name" ],
+                    "hold": true
+                }
+            ]
+        },
 
-    "run_action": {
-        "color": "purple",
-        "section": [
-            {
-                "text": "run action",
-                "par": [ "Name" ]
-            }
-        ]
-    },
+        "run_action": {
+            "color": "purple",
+            "section": [
+                {
+                    "text": "run action",
+                    "par": [ "Name" ]
+                }
+            ]
+        },
 
-    "if": {
-        "color": "orange",
-        "section": [
-            {
-                "text": "if",
-                "par": [ "Condition" ],
-                "hold": true
-            }
-        ]
-    },
+        "if": {
+            "color": "orange",
+            "section": [
+                {
+                    "text": "if",
+                    "par": [ "Condition" ],
+                    "hold": true
+                }
+            ]
+        },
 
-    "if_else": {
-        "color": "orange",
-        "section": [
-            {
-                "text": "if",
-                "par": [ "Condition" ],
-                "hold": true
-            },
-            {
-                "text": "else",
-                "hold": true
-            }
-        ]
-    },
+        "if_else": {
+            "color": "orange",
+            "section": [
+                {
+                    "text": "if",
+                    "par": [ "Condition" ],
+                    "hold": true
+                },
+                {
+                    "text": "else",
+                    "hold": true
+                }
+            ]
+        },
 
-    "repeat": {
-        "color": "#8888ff",
-        "section": [
-            {
-                "text": "repeat",
-                "hold": true
-            }
-        ]
-    },
+        "repeat": {
+            "color": "#8888ff",
+            "section": [
+                {
+                    "text": "repeat",
+                    "hold": true
+                }
+            ]
+        },
 
-    "end_repeat": {
-        "color": "red",
-        "section": [
-            {
-                "text": "end repeat"
-            }
-        ]
-    },
+        "end_repeat": {
+            "color": "red",
+            "section": [
+                {
+                    "text": "end repeat"
+                }
+            ]
+        },
 
-    "wait": {
-        "color": "#2020ff",
-        "section": [
-            {
-                "text": "wait",
-                "par": [ "Seconds" ]
-            }
-        ]
+        "wait": {
+            "color": "#2020ff",
+            "section": [
+                {
+                    "text": "wait",
+                    "par": [ "Seconds" ]
+                }
+            ]
+        }
+    },
+    
+    "params": {
+        "and": {
+            "color": "green",
+            "section": [
+                [],
+                "and",
+                []
+            ]
+        }
     }
 }

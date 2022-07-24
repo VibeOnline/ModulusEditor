@@ -31,7 +31,9 @@ var nodes;
 fetch("js/nodes.json")
     .then(resp => resp.json())
     .then(json => {
-        nodes = json;
+        nodes = json.actors;
+        params = json.params;
+
         window.dispatchEvent(new CustomEvent("nodesready"));
     });
 
@@ -54,13 +56,17 @@ function newNode(par, ref) {
         var sect = document.createElement("span");
 
         // Conditional parameter
+        sect.innerHTML += `<div style='margin-bottom: 10px;'>${ref.section[i].text}</div>`;
         for (j in ref.section[i].par) {
             let inp = condField.cloneNode(true);
-            inp.querySelector("input").setAttribute("placeholder", ref.section[i].par[j]);
+            let value = inp.querySelector("input");
+
+            value.setAttribute("placeholder", ref.section[i].par[j]);
+            value.style.width = "calc(100% - 20px)";
+            inp.style.width = "calc(100% - 20px)";
             sect.appendChild(inp);
         }
-
-        sect.innerHTML += ref.section[i].text + "<hr>";
+        sect.innerHTML += "<hr>";
 
         // Space to hold children
         if (ref.section[i].hold) {
@@ -71,6 +77,41 @@ function newNode(par, ref) {
     }
 
     return par.appendChild(node);
+}
+
+// Create conditional
+function newCond(par, ref) {
+    let cond = document.createElement("div");
+
+    // Add functions
+    cond.setAttribute("id", ref);
+    cond.setAttribute("ondrag", "drag(event)");
+    cond.setAttribute("draggable", true);
+    ref = params[ref];
+
+    // Style
+    cond.classList.add("cond");
+    cond.style.backgroundColor = ref.color;
+
+    // Add node field
+    for (i in ref.section) {
+        var sect = document.createElement("div");
+
+        // Space to hold children
+        if (typeof(ref.section[i]) == "object") {
+            let inp = condField.cloneNode();
+            inp.appendChild(inputElem.cloneNode());
+            sect.appendChild(inp);
+        } else {
+            let text = document.createElement("div");
+            text.innerHTML = ref.section[i];
+            sect.appendChild(text);
+        }
+
+        cond.appendChild(sect);
+    }
+
+    return par.appendChild(cond);
 }
 
 // Load saved data
@@ -127,8 +168,13 @@ function drop(e) {
         } else {
             alert("Invalid file type, must be \".mdls\"");
         }
-    } else { // Drop node
+    } else { // Drop node or cond
         let item = e.target;
+
+        let type = "nodefield";
+        if (movingElem.classList.value.includes("cond")) {
+            type = "condfield";
+        }
 
         // Redirect from sandbox into nodefield
         if (!movingElem.contains(item)) {
@@ -136,8 +182,12 @@ function drop(e) {
                 item = item.querySelector(".nodefield");
             }
 
+            // Check drop to parent possibility
+            let isType = item.classList.value.includes(type);
+            if (item.parentNode.classList.value.includes(type) && !isType) item = item.parentNode, isType = true;
+
             // Validate parent and drop
-            if (item.classList.value.includes("nodefield")) {
+            if (isType) {
                 // Check origin
                 if (movingElem.parentNode.classList.value.includes("library")) {
                     movingElem = movingElem.cloneNode(true);
@@ -154,7 +204,15 @@ function drop(e) {
                     movingElem.style.top = "0";
                 }
 
-                item.appendChild(movingElem);
+                // Additional condition behavior
+                if (type == "condfield") {
+                    if (item.querySelector(".condfield") == null) {
+                        e.target.parentNode.querySelector("input").style.display = "none";
+                        item.appendChild(movingElem);
+                    }
+                } else {
+                    item.appendChild(movingElem);
+                }
             }
         }
     }
@@ -197,7 +255,10 @@ window.addEventListener("blur", function() {
 window.addEventListener("load", function() {
     window.addEventListener("nodesready", function() { // Nodes ready
         let lib = document.querySelector(".library");
+
+        // Load libraries
         for (item in nodes) newNode(lib, item);
+        for (item in params) newCond(lib, item);
     });
 
     // Initialize sandbox data

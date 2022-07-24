@@ -1,23 +1,24 @@
 {
     "name": "Modulus Script Editor",
     "short_name": "Your tool for creating simple and powerful scripts",
-    "start_url": "http://127.0.0.1:5000",
+    "start_url": "/",
+    "scope": ".",
     "display": "standalone",
     "description": "Drag-and-drop script editor",
     "lang": "en",
     "dir": "auto",
-    "theme_color": "#222233",
-    "background_color": "#6666bb",
+    "theme_color": "#6666bb",
+    "background_color": "#222233",
     "orientation": "landscape",
     "icons": [
         {
-            "src": "https://www.pwabuilder.com/assets/icons/icon_512.png",
+            "src": "/img/icon512.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "maskable"
         },
         {
-            "src": "https://www.pwabuilder.com/assets/icons/icon_192.png",
+            "src": "/img/icon192.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any"
@@ -32,18 +33,18 @@
             "description": "A description for your application",
             "lang": " The default language of your application",
             "dir": "auto",
-            "theme_color": "#000000",
-            "background_color": "#000000",
-            "orientation": "any",
+            "theme_color": "#222233",
+            "background_color": "#6666bb",
+            "orientation": "landscape",
             "icons": [
                 {
-                    "src": "https://www.pwabuilder.com/assets/icons/icon_512.png",
+                    "src": "/img/icon512.png",
                     "sizes": "512x512",
                     "type": "image/png",
                     "purpose": "maskable"
                 },
                 {
-                    "src": "https://www.pwabuilder.com/assets/icons/icon_192.png",
+                    "src": "/img/icon192.png",
                     "sizes": "192x192",
                     "type": "image/png",
                     "purpose": "any"
@@ -63,7 +64,7 @@
                     "url": " The URL to your app in that app store"
                 }
             ],
-            "prefer_related_applications": "false",
+            "prefer_related_applications": false,
             "shortcuts": [
                 {
                     "name": "The name you would like to be displayed for your shortcut",

@@ -1,10 +1,10 @@
-const registerServiceWorker = async () => {
+const sw = async () => {
     if ("serviceWorker" in navigator) {
         try {
             const registration = await navigator.serviceWorker.register(
                 "/js/sw.js",
                 {
-                    scope: "/"
+                    scope: "."
                 }
             );
 
@@ -22,15 +22,17 @@ const registerServiceWorker = async () => {
 };
 
 // Cache data for offline
-const addResourcesToCache = async (resources) => {
+const cacheResource = async (resources) => {
     const cache = await caches.open("v1");
     await cache.addAll(resources);
 };
 
 self.addEventListener("install", (event) => {
     event.waitUntil(
-        addResourcesToCache([
+        cacheResource([
             "/",
+            "/img/icon192.png",
+            "/img/icon512.png",
             "/css/main.css",
             "/js/editor.js",
             "/js/nodes.json",
@@ -38,4 +40,23 @@ self.addEventListener("install", (event) => {
     );
 });
 
-registerServiceWorker();
+// Get data for offline
+self.addEventListener("fetch", event => {
+    if (event.request.url === "https://127.0.0.1:5000") {
+        // or whatever your app's URL is
+        event.respondWith(
+            fetch(event.request).catch(err =>
+                self.cache.open(cache_name).then(cache => cache.match("/"))
+            )
+        );
+    } else {
+        event.respondWith(
+            fetch(event.request).catch(err =>
+                caches.match(event.request).then(response => response)
+            )
+        );
+    }
+});
+
+// Initialize service worker
+sw();
