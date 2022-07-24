@@ -1,0 +1,153 @@
+:root {
+    --background-primary: #222233;
+    --background-sidebar: #555577;
+    --background-secondary: #6666bb;
+    --font-color: white;
+    --font-primary: monospace;
+}
+
+/* Navigation settings */
+nav {
+    background-color: var(--background-secondary);
+    padding: 10px;
+    font-size: 15px;
+    color: white;
+}
+
+nav > span {
+    float: right;
+    display: inline-flex;
+}
+
+nav button, nav input {
+    border: solid 1px rgba(0, 0, 0, 0.2);
+    border-radius: 0.25rem;
+    outline: cyan;
+    margin: 0;
+}
+
+nav button {
+    border-radius: 0 0.25rem 0.25rem 0;
+    background-color: green;
+    color: white;
+    cursor: pointer;
+    width: 50px;
+}
+
+nav input {
+    border-radius: 0.25rem 0 0 0.25rem;
+    outline: #4444ff;
+    width: 150px;
+}
+
+nav > a:hover {
+    text-shadow: rgba(0, 0, 0, 0.5) 0 2px;
+}
+
+/* Main content settings */
+body {
+    font-family: var(--font-primary);
+    background-color: var(--background-primary);
+    margin: 0;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    overflow: hidden;
+}
+
+/* Specific styling */
+.error404 {
+    background-color: var(--background-secondary);
+    color: var(--font-color);
+    text-align: center;
+    margin: 100px;
+    padding: 50px;
+}
+
+.sandbox {
+    position: fixed;
+    left: 400px;
+    top: 30px;
+    width: calc(100% - 400px);
+    height: calc(100% - 30px);
+    z-index: -2;
+}
+
+.sidebar {
+    background-color: var(--background-sidebar);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 425px;
+    padding-top: 40px;
+    height: calc(100vh - 40px);
+    z-index: -1;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.sidebar input {
+    display: none;
+    pointer-events: none;
+}
+
+.node {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 20px;
+    margin: 20px;
+    padding: 10px;
+    border: solid 1px rgba(0, 0, 0, 0.2);
+    border-radius: 0.25rem;
+    min-width: 350px;
+    max-width: 350px;
+    cursor: grab;
+}
+
+.node hr {
+    border: solid 1px rgba(255, 255, 255, 0.3);
+}
+
+.condfield, .condfield > input {
+    border-radius: 1rem;
+    border: rgba(0, 0, 0, 0.2);
+    background-color: white;
+    width: auto;
+    height: 30px;
+    display: inline-block;
+    float: right;
+}
+
+.condfield {
+    margin-top: -3px;
+}
+
+.condfield > input {
+    padding: 0 10px;
+    min-height: 0;
+}
+
+.condfield > input:focus {
+    outline: solid 3px #5555ff;
+}
+
+.nodefield {
+    margin: 10px;
+    padding: 1px;
+    width: calc(100% - 1px);
+    min-height: 40px;
+    border-right: none;
+    border-radius: 0.25rem 0 0 0.25rem;
+    max-width: 500px;
+    background-color: rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.sandbox > .nodefield {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: none;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+}

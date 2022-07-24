@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Modulus</title>
+        <link rel="stylesheet" href="/css/main.css" />
+
+        {# App information #}
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="https://www.pwabuilder.com/assets/icons/icon_512.png" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="application-name" content="PWA Workshop" />
+        <meta name="apple-mobile-web-app-title" content="PWA Workshop" />
+        <meta name="msapplication-starturl" content="/index.html" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="A state of the art multipurpose drag-n-drop programming interface" />
+        <meta name="theme-color" content="#222233" />
+        <meta charset="UTF-8" />
+    </head>
+    <body>
+        <nav>
+            Modulus Editor
+
+            {% block navigation %}
+                <span>
+                    <span style="color: #ff8888; display: none; margin-right: 10px;" id="filename-required">Required</span>
+                    <input placeholder="filename..." type="text" id="filename">
+                    <button onclick="save()" type="button">Save</button>
+                </span>
+            {% endblock %}
+        </nav>
+        <main>
+            {% block main %}
+                <div class="library sidebar" ondragover="allowDrop(event)" ondrop="trash(event)"></div>
+                <div class="sandbox" ondragover="allowDrop(event)" ondrop="drop(event)">
+                    <div class="nodefield"></div>
+                </div>
+
+                {# Editor scripts #}
+                <script src="/js/editor.js" type="application/javascript"></script>
+                <script type="application/javascript">navigator.serviceWorker.register("/sw.js")</script> 
+                <script src="/js/pwa.js" type="application/javascript"></script>
+            {% endblock %}
+        </main>
+    </body>
+</html>
