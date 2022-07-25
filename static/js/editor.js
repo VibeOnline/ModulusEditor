@@ -56,16 +56,15 @@ function newNode(par, ref) {
         var sect = document.createElement("span");
 
         // Conditional parameter
-        sect.innerHTML += `<div style='margin-bottom: 10px;'>${ref.section[i].text}</div>`;
-        for (j in ref.section[i].par) {
-            let inp = condField.cloneNode(true);
-            let value = inp.querySelector("input");
+        if (ref.section[i].text) sect.innerHTML += `<div style='margin-bottom: 10px;'>${ref.section[i].text}</div>`;
+        let inp = condField.cloneNode(true);
+        let value = inp.querySelector("input");
 
-            value.setAttribute("placeholder", ref.section[i].par[j]);
-            value.style.width = "calc(100% - 20px)";
-            inp.style.width = "calc(100% - 20px)";
-            sect.appendChild(inp);
-        }
+        value.setAttribute("placeholder", ref.section.par);
+        value.style.width = "calc(100% - 20px)";
+        inp.style.width = "calc(100% - 20px)";
+        sect.appendChild(inp);
+        sect.innerHTML += "<span style='height: 10px; display: block;'></span>";
 
         // Space to hold children
         if (ref.section[i].hold) {
@@ -236,8 +235,11 @@ function drop(e) {
                 if (type == "condfield") {
                     if (item.querySelector(".condfield") == null) {
                         e.target.parentNode.querySelector("input").style.display = "none";
-                        oldPar.querySelector("input").style.display = "block";
                         item.appendChild(movingElem);
+
+                        if (oldPar.childNodes.length == 1) {
+                            oldPar.querySelector("input").style.display = "block";
+                        }
                     }
                 } else {
                     item.appendChild(movingElem);
@@ -252,7 +254,10 @@ function trash(e) {
     e.preventDefault();
 
     if (!movingElem.parentNode.classList.value.includes("library")) {
-        movingElem.parentNode.querySelector("input").style.display = "block";
+        if (movingElem.parentNode.childNodes.length == 1) {
+            movingElem.parentNode.querySelector("input").style.display = "block";
+        }
+
         movingElem.parentNode.removeChild(movingElem);
     }
 }

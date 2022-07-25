@@ -1,43 +1,43 @@
 {
     "actors": {
         "set_action": {
-            "color": "purple",
+            "color": "#8855ee",
             "section": [
                 {
                     "text": "set action",
-                    "par": [ "Name" ],
+                    "par": "Name",
                     "hold": true
                 }
             ]
         },
 
         "run_action": {
-            "color": "purple",
+            "color": "#8855ee",
             "section": [
                 {
                     "text": "run action",
-                    "par": [ "Name" ]
+                    "par": "Name"
                 }
             ]
         },
 
         "if": {
-            "color": "orange",
+            "color": "#ff7f55",
             "section": [
                 {
                     "text": "if",
-                    "par": [ "Condition" ],
+                    "par": "Condition",
                     "hold": true
                 }
             ]
         },
 
         "if_else": {
-            "color": "orange",
+            "color": "#ff7f55",
             "section": [
                 {
                     "text": "if",
-                    "par": [ "Condition" ],
+                    "par": "Condition",
                     "hold": true
                 },
                 {
@@ -48,7 +48,7 @@
         },
 
         "repeat": {
-            "color": "#8888ff",
+            "color": "#5555ff",
             "section": [
                 {
                     "text": "repeat",
@@ -57,8 +57,18 @@
             ]
         },
 
+        "wait": {
+            "color": "#5555ff",
+            "section": [
+                {
+                    "text": "wait",
+                    "par": "Seconds"
+                }
+            ]
+        },
+
         "end_repeat": {
-            "color": "red",
+            "color": "#ff5555",
             "section": [
                 {
                     "text": "end repeat"
@@ -66,12 +76,15 @@
             ]
         },
 
-        "wait": {
-            "color": "#2020ff",
+        "set_var": {
+            "color": "red",
             "section": [
                 {
-                    "text": "wait",
-                    "par": [ "Seconds" ]
+                    "text": "set variable",
+                    "par": "Name"
+                },
+                {
+                    "par": "Value"
                 }
             ]
         }
@@ -83,6 +96,94 @@
             "section": [
                 [],
                 "and",
+                []
+            ]
+        },
+
+        "or": {
+            "color": "green",
+            "section": [
+                [],
+                "or",
+                []
+            ]
+        },
+
+        "gt": {
+            "color": "green",
+            "section": [
+                [],
+                "&gt;",
+                []
+            ]
+        },
+
+        "lt": {
+            "color": "green",
+            "section": [
+                [],
+                "&lt;",
+                []
+            ]
+        },
+
+        "eq": {
+            "color": "green",
+            "section": [
+                [],
+                "&equals;",
+                []
+            ]
+        },
+
+        "not": {
+            "color": "green",
+            "section": [
+                "not",
+                []
+            ]
+        },
+
+        "add": {
+            "color": "blue",
+            "section": [
+                [],
+                "&plus;",
+                []
+            ]
+        },
+
+        "subtract": {
+            "color": "blue",
+            "section": [
+                [],
+                "&minus;",
+                []
+            ]
+        },
+
+        "divide": {
+            "color": "blue",
+            "section": [
+                [],
+                "&divide;",
+                []
+            ]
+        },
+
+        "multiply": {
+            "color": "blue",
+            "section": [
+                [],
+                "&times;",
+                []
+            ]
+        },
+
+        "var": {
+            "color": "red",
+            "section": [
+                "Variable",
                 []
             ]
         }
