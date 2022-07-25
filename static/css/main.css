@@ -87,12 +87,18 @@ body {
 }
 
 .sidebar > .cond {
+    text-align: center;
+    max-width: 300px;
     margin: 20px;
 }
 
-.sidebar input {
+.sidebar .condfield {
+    width: 100px;
+    vertical-align: middle;
+}
+
+.sidebar .condfield > input {
     display: none;
-    pointer-events: none;
 }
 
 .node {

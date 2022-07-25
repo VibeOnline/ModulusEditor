@@ -66,10 +66,10 @@ function newNode(par, ref) {
             inp.style.width = "calc(100% - 20px)";
             sect.appendChild(inp);
         }
-        sect.innerHTML += "<hr>";
 
         // Space to hold children
         if (ref.section[i].hold) {
+            sect.innerHTML += "<hr>";
             sect.appendChild(nodeField.cloneNode());
         }
 
@@ -95,23 +95,41 @@ function newCond(par, ref) {
 
     // Add node field
     for (i in ref.section) {
-        var sect = document.createElement("div");
-
-        // Space to hold children
-        if (typeof(ref.section[i]) == "object") {
+        if (typeof(ref.section[i]) == "object") { // Hold children
             let inp = condField.cloneNode();
             inp.appendChild(inputElem.cloneNode());
-            sect.appendChild(inp);
-        } else {
+            cond.appendChild(inp);
+        } else { // Basic text
             let text = document.createElement("div");
             text.innerHTML = ref.section[i];
-            sect.appendChild(text);
+            cond.appendChild(text);
         }
-
-        cond.appendChild(sect);
     }
 
     return par.appendChild(cond);
+}
+
+// Param load data
+function loadParam(par, data) {
+    let cond = newCond(par, data.name);
+    par.querySelector("input").style.display = "none";
+
+    // Get sub conditions
+    data.content.forEach(function(subData, ind) {
+        let fields = [];
+
+        // Return only direct children
+        cond.querySelectorAll(".condfield").forEach(function(field) { 
+            if (field.parentNode === cond) fields.push(field);
+        });
+
+        // Insert into input or create new sub condition
+        if (typeof(subData) == "string") {
+            fields[ind].querySelector("input").value = subData;
+        } else {
+            loadParam(fields[ind], subData);
+        }
+    });
 }
 
 // Load saved data
@@ -121,6 +139,18 @@ function loadData(data) {
     let rec = function(par, items) { // Recursive get all nodes
         items.forEach(function(item) {
             let node = newNode(par, item.name);
+
+            // Unpack conditions
+            item.data.forEach(function(data, ind) {
+                let fields = [];
+
+                // Return only direct children
+                node.querySelectorAll(".condfield").forEach(function(field) { 
+                    if (field.parentNode.parentNode === node) fields.push(field);
+                });
+
+                loadParam(fields[ind], data);
+            });
 
             // Find all content divisions
             item.content.forEach(function(content, ind) {
@@ -171,10 +201,7 @@ function drop(e) {
     } else { // Drop node or cond
         let item = e.target;
 
-        let type = "nodefield";
-        if (movingElem.classList.value.includes("cond")) {
-            type = "condfield";
-        }
+        let type = movingElem.classList.value.includes("cond") ? "condfield" : "nodefield";
 
         // Redirect from sandbox into nodefield
         if (!movingElem.contains(item)) {
@@ -189,6 +216,7 @@ function drop(e) {
             // Validate parent and drop
             if (isType) {
                 // Check origin
+                let oldPar = movingElem.parentNode;
                 if (movingElem.parentNode.classList.value.includes("library")) {
                     movingElem = movingElem.cloneNode(true);
                 }
@@ -196,8 +224,8 @@ function drop(e) {
                 // Allow drop at any position in sandbox
                 if (item.parentNode.classList.value.includes("sandbox")) {
                     movingElem.style.position = "absolute";
-                    movingElem.style.left = e.x - view.x - 40 + "px";
-                    movingElem.style.top = e.y - view.y - 40 + "px";
+                    movingElem.style.left = `${e.x - view.x - 40}px`;
+                    movingElem.style.top = `${e.y - view.y - 40}px`;
                 } else {
                     movingElem.style.position = "static";
                     movingElem.style.left = "0";
@@ -208,6 +236,7 @@ function drop(e) {
                 if (type == "condfield") {
                     if (item.querySelector(".condfield") == null) {
                         e.target.parentNode.querySelector("input").style.display = "none";
+                        oldPar.querySelector("input").style.display = "block";
                         item.appendChild(movingElem);
                     }
                 } else {
@@ -223,6 +252,7 @@ function trash(e) {
     e.preventDefault();
 
     if (!movingElem.parentNode.classList.value.includes("library")) {
+        movingElem.parentNode.querySelector("input").style.display = "block";
         movingElem.parentNode.removeChild(movingElem);
     }
 }
@@ -238,18 +268,13 @@ window.addEventListener("mousemove", function (e) {
     if (view.move) {
         view.x += e.movementX;
         view.y += e.movementY;
-        sbArea.style.left = view.x + "px";
-        sbArea.style.top = view.y + "px";
+        sbArea.style.left = `${view.x}px`;
+        sbArea.style.top = `${view.y}px`;
     }
 });
 
-window.addEventListener("mouseup", function() {
-    view.move = false;
-});
-
-window.addEventListener("blur", function() {
-    view.move = false;
-});
+window.addEventListener("mouseup", function() { view.move = false; });
+window.addEventListener("blur", function() { view.move = false; });
 
 // Body loaded
 window.addEventListener("load", function() {
@@ -262,9 +287,36 @@ window.addEventListener("load", function() {
     });
 
     // Initialize sandbox data
-    sbArea.style.left = view.x + "px";
-    sbArea.style.top = view.y + "px";
+    sbArea.style.left = `${view.x}px`;
+    sbArea.style.top = `${view.y}px`;
 });
+
+// Param compilation
+function paramCompile(div) {
+    // Get non cond field info
+    div = div.querySelector("div");
+
+    // Normal recursion
+    let item = {
+        name: div.getAttribute("id"),
+        content: []
+    };
+
+    // Get value of children
+    div.childNodes.forEach(function(child) {
+        if (child.style.display != "none") {
+            let inp = child.querySelector("input");
+
+            if (inp && inp.style.display != "none") {
+                item.content.push(inp.value);
+            } else if (child.childNodes.length > 1) {
+                item.content.push(paramCompile(child));
+            }
+        }
+    });
+
+    return item;
+}
 
 // Compile script
 function compile() {
@@ -277,15 +329,25 @@ function compile() {
 
                 // Pack contents of all fields
                 val.querySelectorAll(".nodefield").forEach(function(holds) {
-                    if (holds.parentNode.parentNode === val) {
-                        sections.push(readNodes(holds));
+                    if (holds.parentNode.parentNode === val) sections.push(readNodes(holds));
+                });
+
+                // Pack data in conditional
+                let param = [];
+                val.querySelectorAll(".condfield").forEach(function(data) {
+                    if (data.parentNode.parentNode === val) {
+                        data = data.querySelector("div") || data.querySelector("input").value; // Add as basic text
+
+                        // Compile if cond field
+                        if (typeof(data) != "text") param.push(paramCompile(data.parentNode));
                     }
                 });
 
                 // Pack whole node
                 arr.push({
-                    "name": val.getAttribute("id"),
-                    "content": sections
+                    name: val.getAttribute("id"),
+                    content: sections,
+                    data: param
                 });
             });
         }
@@ -303,10 +365,8 @@ function save() {
     if (filename != "") {
         // Add download anchor
         var a = document.createElement("a");
-        a.href = "data:text/plain;charset=utf-8," + encodeURIComponent(JSON.stringify({
-            "script": compile()
-        }));
-        a.download = filename + ".mdls";
+        a.href = `data:text/plain;charset=utf-8,${encodeURIComponent(JSON.stringify({ "script": compile() }))}`;
+        a.download = `${filename}.mdls`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -319,3 +379,8 @@ function save() {
 }
 
 // Warn before unload and save data
+window.addEventListener("beforeunload", function (e) {
+    var mess = "If you leave now your work may not be saved.";
+    (e || window.event).returnValue = mess;
+    return mess;
+});
