@@ -60,7 +60,7 @@ function newNode(par, ref) {
         let inp = condField.cloneNode(true);
         let value = inp.querySelector("input");
 
-        value.setAttribute("placeholder", ref.section.par);
+        value.setAttribute("placeholder", ref.section[i].par);
         value.style.width = "calc(100% - 20px)";
         inp.style.width = "calc(100% - 20px)";
         sect.appendChild(inp);

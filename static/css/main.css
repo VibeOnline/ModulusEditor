@@ -111,6 +111,7 @@ body {
     min-width: 350px;
     cursor: grab;
     white-space: nowrap;
+    margin-right: -50px;
 }
 
 .cond {
