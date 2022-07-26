@@ -8,6 +8,10 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
+@app.route("/test")
+def test():
+    return render_template("test.html")
+
 # Handlers
 @app.errorhandler(404)
 def page_not_found(e):
@@ -17,6 +21,10 @@ def page_not_found(e):
 @app.route("/<path:path>")
 def send_static(path):
     return send_from_directory("static/", path)
+
+@app.route("/compiler/modulus.js")
+def send_compiler():
+    return send_from_directory("compilers/", "modulus.js")
 
 # Load PWA service worker
 @app.route("/sw.js")

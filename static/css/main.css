@@ -92,6 +92,10 @@ body {
     margin: 20px;
 }
 
+.sidebar .node {
+    width: 300px;
+}
+
 .sidebar .condfield {
     width: 100px;
     vertical-align: middle;

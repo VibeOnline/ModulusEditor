@@ -57,14 +57,17 @@ function newNode(par, ref) {
 
         // Conditional parameter
         if (ref.section[i].text) sect.innerHTML += `<div style='margin-bottom: 10px;'>${ref.section[i].text}</div>`;
-        let inp = condField.cloneNode(true);
-        let value = inp.querySelector("input");
 
-        value.setAttribute("placeholder", ref.section[i].par);
-        value.style.width = "calc(100% - 20px)";
-        inp.style.width = "calc(100% - 20px)";
-        sect.appendChild(inp);
-        sect.innerHTML += "<span style='height: 10px; display: block;'></span>";
+        if (ref.section[i].par) {
+            let inp = condField.cloneNode(true);
+            let value = inp.querySelector("input");
+
+            value.setAttribute("placeholder", ref.section[i].par);
+            value.style.width = "calc(100% - 20px)";
+            inp.style.width = "calc(100% - 20px)";
+            sect.appendChild(inp);
+            sect.innerHTML += "<span style='height: 10px; display: block;'></span>";
+        }
 
         // Space to hold children
         if (ref.section[i].hold) {
@@ -344,7 +347,11 @@ function compile() {
                         data = data.querySelector("div") || data.querySelector("input").value; // Add as basic text
 
                         // Compile if cond field
-                        if (typeof(data) != "text") param.push(paramCompile(data.parentNode));
+                        if (typeof(data) == "object") {
+                            param.push(paramCompile(data.parentNode));
+                        } else {
+                            param.push(data);
+                        }
                     }
                 });
 
