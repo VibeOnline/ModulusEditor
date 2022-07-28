@@ -113,25 +113,29 @@ function newCond(par, ref) {
 
 // Param load data
 function loadParam(par, data) {
-    let cond = newCond(par, data.name);
-    par.querySelector("input").style.display = "none";
+    if (data.name) {
+        let cond = newCond(par, data.name);
+        par.querySelector("input").style.display = "none";
 
-    // Get sub conditions
-    data.content.forEach(function(subData, ind) {
-        let fields = [];
+        // Get sub conditions
+        data.content.forEach(function(subData, ind) {
+            let fields = [];
 
-        // Return only direct children
-        cond.querySelectorAll(".condfield").forEach(function(field) { 
-            if (field.parentNode === cond) fields.push(field);
+            // Return only direct children
+            cond.querySelectorAll(".condfield").forEach(function(field) { 
+                if (field.parentNode === cond) fields.push(field);
+            });
+
+            // Insert into input or create new sub condition
+            if (typeof(subData) == "string") {
+                fields[ind].querySelector("input").value = subData;
+            } else {
+                loadParam(fields[ind], subData);
+            }
         });
-
-        // Insert into input or create new sub condition
-        if (typeof(subData) == "string") {
-            fields[ind].querySelector("input").value = subData;
-        } else {
-            loadParam(fields[ind], subData);
-        }
-    });
+    } else {
+        par.querySelector("input").value = data;
+    }
 }
 
 // Load saved data

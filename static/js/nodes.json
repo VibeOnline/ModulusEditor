@@ -62,7 +62,8 @@
             "section": [
                 {
                     "text": "wait",
-                    "par": "Seconds"
+                    "par": "Seconds",
+                    "hold": true
                 }
             ]
         },

@@ -1,53 +1,65 @@
-// Node behavior
-const nodes = {};
-
 // Design params
-const params = {
-    and: "(:0: && :1:)",
-    or: "(:0: || :1:)",
-    eq: "(:0: == :1:)",
-    add: "(:0: + :1:)"
+const translate = {
+    actors: {
+        set_action: ":par:() { :content: }",
+        run_action: ":par:();",
+        if: "if :par: { :content: }",
+        if_else: "if :par: { :content: } else { :content: }",
+        repeat: "while(true) { :content: }",
+        wait: "setTimeout(() => { :content: }, (:par: * 1000));",
+        end_repeat: "",
+        set_var: ":par: = :par:;"
+    },
+    params: {
+        and: "(:par: && :par:)",
+        or: "(:par: || :par:)",
+        gt: "(:par: > :par:)",
+        lt: "(:par: < :par:)",
+        eq: "(:par: == :par:)",
+        not: "!:par:",
+        add: "(:par: + :par:)",
+        subtract: "(:par: - :par:)",
+        divide: "(:par: / :par:)",
+        multiply: "(:par: * :par:)",
+        var: ":par:"
+    }
 };
-
-// Design actions
-nodes.if = function(step) { return eval(step.par) ? step.content[0] : step.content[1]; }
-nodes.if_else = nodes.if;
-
-// Run execution steps
-function run(data) {
-    if (data) data.forEach(step => run(nodes[step.name](step)));
-}
 
 // Precompile parameters
 function compileCond(cond) {
-    if (typeof(cond) == "object") {
-        // Get sub data
-        let arr = [];
-        cond.content.forEach(val => {
-            arr.push(compileCond(val));
-        });
+    if (!cond.name) return cond;
 
-        // Format string condition
-        let str = params[cond.name];
-        arr.forEach((val, ind) => {
-            str = str.replace(`:${ind}:`, val);
-        });
+    // Get sub data
+    let str = translate.params[cond.name];
+    cond.content.forEach(val => {
+        str = str.replace(":par:", compileCond(val));
+    });
 
-        return str;
-    } else return cond;
+    return str;
 }
 
 // Precompile actions
 function compile(data) {
-    if (data) data.forEach(function(step) {
-        step.data.forEach((par, ind) => {
-            step.data[ind] = compileCond(par);
+    full = [];
+
+    data.forEach(node => {
+        // Get template
+        let str = translate.actors[node.name];
+
+        // Get children data
+        node.content.forEach(val => {
+            str = str.replace(":content:", compile(val));
         });
 
-        step.content.forEach(sub => compile(sub));
+        // Format string condition
+        node.data.forEach(cond => {
+            str = str.replace(":par:", compileCond(cond));
+        });
+
+        full.push(str);
     });
 
-    return data;
+    return full.join(" ");
 }
 
 // Load all modulus script with compiler
@@ -57,8 +69,7 @@ window.addEventListener("load", function() {
             fetch(script.getAttribute("src"))
                 .then(res => res.json())
                 .then(data => {
-                    console.log(compile(data.script));
-                    run(compile(data.script));
+                    eval(compile(data.script));
                 });
         }
     });
