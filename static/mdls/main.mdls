@@ -1,1 +1,122 @@
-{"script":[{"name":"if","content":[[{"name":"set_var","content":[],"data":["test",{"name":"add","content":["10","15"]}]}]],"data":[{"name":"eq","content":[{"name":"add","content":["10","15"]},"25"]}]},{"name":"if_else","content":[[{"name":"set_var","content":[],"data":["x","100"]}],[{"name":"set_var","content":[],"data":["y","100"]}]],"data":[{"name":"eq","content":["true","false"]}]}]}
+{
+    "script": [
+        {
+            "name": "set_action",
+            "content": [
+                [
+                    {
+                        "name": "if",
+                        "content": [
+                            [
+                                {
+                                    "name": "wait",
+                                    "content": [
+                                        [
+                                            {
+                                                "name": "set_var",
+                                                "content": [],
+                                                "data": [
+                                                    "test",
+                                                    "working"
+                                                ]
+                                            }
+                                        ]
+                                    ],
+                                    "data": [
+                                        {
+                                            "name": "or",
+                                            "content": [
+                                                "true",
+                                                "true"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "data": [
+                            {
+                                "name": "and",
+                                "content": [
+                                    "true",
+                                    "true"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            ],
+            "data": [
+                "testFunction"
+            ]
+        },
+        {
+            "name": "run_action",
+            "content": [],
+            "data": [
+                "testFunction"
+            ]
+        },
+        {
+            "name": "set_var",
+            "content": [],
+            "data": [
+                "another",
+                "1"
+            ]
+        },
+        {
+            "name": "repeat",
+            "content": [
+                [
+                    {
+                        "name": "set_var",
+                        "content": [],
+                        "data": [
+                            "another",
+                            {
+                                "name": "add",
+                                "content": [
+                                    {
+                                        "name": "var",
+                                        "content": [
+                                            "another"
+                                        ]
+                                    },
+                                    "1"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "if",
+                        "content": [
+                            [
+                                {
+                                    "name": "end_repeat",
+                                    "content": [],
+                                    "data": []
+                                }
+                            ]
+                        ],
+                        "data": [
+                            {
+                                "name": "gt",
+                                "content": [
+                                    {
+                                        "name": "var",
+                                        "content": [
+                                            "another"
+                                        ]
+                                    },
+                                    "50"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            ],
+            "data": []
+        }
+    ]
+}
