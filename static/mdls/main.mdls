@@ -13,7 +13,7 @@
             "content": [
                 [
                     {
-                        "name": "if",
+                        "name": "if_else",
                         "content": [
                             [
                                 {
@@ -24,11 +24,21 @@
                                         "20"
                                     ]
                                 }
+                            ],
+                            [
+                                {
+                                    "name": "set_var",
+                                    "content": [],
+                                    "data": [
+                                        "test",
+                                        "30"
+                                    ]
+                                }
                             ]
                         ],
                         "data": [
                             {
-                                "name": "gt",
+                                "name": "lt",
                                 "content": [
                                     {
                                         "name": "var",
