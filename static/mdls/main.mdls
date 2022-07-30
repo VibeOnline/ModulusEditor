@@ -1,6 +1,14 @@
 {
     "script": [
         {
+            "name": "set_var",
+            "content": [],
+            "data": [
+                "test",
+                "10"
+            ]
+        },
+        {
             "name": "set_action",
             "content": [
                 [
@@ -9,37 +17,26 @@
                         "content": [
                             [
                                 {
-                                    "name": "wait",
-                                    "content": [
-                                        [
-                                            {
-                                                "name": "set_var",
-                                                "content": [],
-                                                "data": [
-                                                    "test",
-                                                    "working"
-                                                ]
-                                            }
-                                        ]
-                                    ],
+                                    "name": "set_var",
+                                    "content": [],
                                     "data": [
-                                        {
-                                            "name": "or",
-                                            "content": [
-                                                "true",
-                                                "true"
-                                            ]
-                                        }
+                                        "test",
+                                        "20"
                                     ]
                                 }
                             ]
                         ],
                         "data": [
                             {
-                                "name": "and",
+                                "name": "gt",
                                 "content": [
-                                    "true",
-                                    "true"
+                                    {
+                                        "name": "var",
+                                        "content": [
+                                            "test"
+                                        ]
+                                    },
+                                    "5"
                                 ]
                             }
                         ]
@@ -58,61 +55,13 @@
             ]
         },
         {
-            "name": "set_var",
-            "content": [],
-            "data": [
-                "another",
-                "1"
-            ]
-        },
-        {
             "name": "repeat",
             "content": [
                 [
                     {
-                        "name": "set_var",
+                        "name": "end_repeat",
                         "content": [],
-                        "data": [
-                            "another",
-                            {
-                                "name": "add",
-                                "content": [
-                                    {
-                                        "name": "var",
-                                        "content": [
-                                            "another"
-                                        ]
-                                    },
-                                    "1"
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        "name": "if",
-                        "content": [
-                            [
-                                {
-                                    "name": "end_repeat",
-                                    "content": [],
-                                    "data": []
-                                }
-                            ]
-                        ],
-                        "data": [
-                            {
-                                "name": "gt",
-                                "content": [
-                                    {
-                                        "name": "var",
-                                        "content": [
-                                            "another"
-                                        ]
-                                    },
-                                    "50"
-                                ]
-                            }
-                        ]
+                        "data": []
                     }
                 ]
             ],
