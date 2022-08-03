@@ -10,7 +10,8 @@ translate = {
         "repeat": "while (True):\n:content:",
         "wait": "sleep(:par:)",
         "end_repeat": "break",
-        "set_var": "mdls_set_var(\":par:\", :par:)"
+        "set_var": "mdls_set_var(\":par:\", :par:)",
+        "return": "return :par:"
     },
     "params": {
         "and": "(:par: and :par:)",
@@ -23,7 +24,27 @@ translate = {
         "subtract": "(:par: - :par:)",
         "divide": "(:par: / :par:)",
         "multiply": "(:par: * :par:)",
-        "var": "mdls_get_var(\":par:\")"
+        "var": "mdls_get_var(\":par:\")",
+        "run_action": ":par:()",
+        "true": "True",
+        "false": "False",
+        "modulo": "(:par: % :par:)",
+        "pow": "(:par: ** :par:)",
+        "log": "(math.log(:par:) / math.log(:par:))",
+        "sin": "math.sin(:par:)",
+        "cos": "math.cos(:par:)",
+        "tan": "math.tan(:par:)",
+        "asin": "math.asin(:par:)",
+        "acos": "math.acos(:par:)",
+        "atan": "math.atan(:par:)",
+        "round": "round(:par:)",
+        "floor": "math.floor(:par:)",
+        "ceil": "math.ceil(:par:)",
+        "abs": "abs(:par:)",
+        "sqrt": "math.sqrt(:par:)",
+        "pi": "math.pi",
+        "ln": "math.log(:par:)",
+        "e": "math.e"
     }
 }
 
@@ -79,7 +100,7 @@ def compile_files(path=None, ind=0):
                 # Run script
                 script = open(src, "r")
                 exec(
-                    "from time import sleep\n\n%s" % compile(json.loads(script.read())["script"]).replace("\n\t", "\n"),
+                    "from time import sleep\nimport math\n\n%s" % compile(json.loads(script.read())["script"]).replace("\n\t", "\n"),
                     { # Script runtime context
                         "mdls_set_var": mdls_set_var,
                         "mdls_get_var": mdls_get_var

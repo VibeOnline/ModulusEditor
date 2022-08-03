@@ -21,6 +21,16 @@
             ]
         },
 
+        "return": {
+            "color": "#8855ee",
+            "section": [
+                {
+                    "text": "Return value",
+                    "par": "Value"
+                }
+            ]
+        },
+
         "if": {
             "color": "#ff7f55",
             "section": [
@@ -181,12 +191,168 @@
             ]
         },
 
+        "modulo": {
+            "color": "blue",
+            "section": [
+                [],
+                "mod",
+                []
+            ]
+        },
+
+        "pow": {
+            "color": "blue",
+            "section": [
+                [],
+                "pow",
+                []
+            ]
+        },
+
+        "log": {
+            "color": "blue",
+            "section": [
+                "log",
+                [],
+                "base",
+                []
+            ]
+        },
+
+        "sin": {
+            "color": "blue",
+            "section": [
+                "sin",
+                []
+            ]
+        },
+
+        "cos": {
+            "color": "blue",
+            "section": [
+                "cos",
+                []
+            ]
+        },
+
+        "tan": {
+            "color": "blue",
+            "section": [
+                "tan",
+                []
+            ]
+        },
+
+        "asin": {
+            "color": "blue",
+            "section": [
+                "asin",
+                []
+            ]
+        },
+
+        "acos": {
+            "color": "blue",
+            "section": [
+                "acos",
+                []
+            ]
+        },
+
+        "atan": {
+            "color": "blue",
+            "section": [
+                "atan",
+                []
+            ]
+        },
+
+        "round": {
+            "color": "blue",
+            "section": [
+                "round",
+                []
+            ]
+        },
+
+        "floor": {
+            "color": "blue",
+            "section": [
+                "floor",
+                []
+            ]
+        },
+
+        "ceil": {
+            "color": "blue",
+            "section": [
+                "ceiling",
+                []
+            ]
+        },
+
+        "abs": {
+            "color": "blue",
+            "section": [
+                "absolute",
+                []
+            ]
+        },
+
+        "sqrt": {
+            "color": "blue",
+            "section": [
+                "&#8730;",
+                []
+            ]
+        },
+
+        "pi": {
+            "color": "blue",
+            "section": [
+                "&#960;"
+            ]
+        },
+
+        "ln": {
+            "color": "blue",
+            "section": [
+                "ln",
+                []
+            ]
+        },
+
+        "e": {
+            "color": "blue",
+            "section": [
+                "e"
+            ]
+        },
+
         "var": {
             "color": "red",
             "section": [
                 "Variable",
                 []
             ]
+        },
+
+        "run_action": {
+            "color": "#8855ee",
+            "section": [
+                "Run action",
+                []
+            ]
+        },
+
+        "true": {
+            "color": "#eeaa22",
+            "section": [ "true" ]
+        },
+
+        "false": {
+            "color": "#eeaa22",
+            "section": [ "false" ]
         }
     }
 }

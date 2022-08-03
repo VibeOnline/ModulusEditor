@@ -8,7 +8,8 @@ const translate = {
         repeat: "while(true) { :content: }",
         wait: "setTimeout(() => { :content: }, (:par: * 1000));",
         end_repeat: "break;",
-        set_var: ":par: = :par:;"
+        set_var: ":par: = :par:;",
+        return: "return :par:;"
     },
     params: {
         and: "(:par: && :par:)",
@@ -16,12 +17,33 @@ const translate = {
         gt: "(:par: > :par:)",
         lt: "(:par: < :par:)",
         eq: "(:par: == :par:)",
-        not: "!:par:",
+        not: "(!:par:)",
         add: "(:par: + :par:)",
         subtract: "(:par: - :par:)",
         divide: "(:par: / :par:)",
         multiply: "(:par: * :par:)",
-        var: ":par:"
+        var: "(:par:)",
+        run_action: "(:par:())",
+        true: "(true)",
+        false: "(false)",
+        modulo: "(:par: % :par:)",
+        pow: "(:par: ** :par:)",
+        pow: "(:par: ** :par:)",
+        log: "(Math.log(:par:) / Math.log(:par:))",
+        sin: "(Math.sin(:par:))",
+        cos: "(Math.cos(:par:))",
+        tan: "(Math.tan(:par:))",
+        asin: "(Math.asin(:par:))",
+        acos: "(Math.acos(:par:))",
+        atan: "(Math.atan(:par:))",
+        round: "(Math.round(:par:))",
+        floor: "(Math.floor(:par:))",
+        ceil: "(Math.ceil(:par:))",
+        abs: "(Math.abs(:par:))",
+        sqrt: "(Math.sqrt(:par:))",
+        pi: "(Math.PI)",
+        ln: "(Math.log(:par:))",
+        e: "(Math.E)"
     }
 };
 
